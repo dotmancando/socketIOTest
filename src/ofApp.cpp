@@ -91,7 +91,7 @@ void ofApp::newResponse(ofxHttpResponse & response){
     if(response.status == 200){
         ofLog() << "got result 200 OK";
         string txt = (string)response.responseBody;
-        
+        ofLog() << "txt = " << txt;
         // this is extremely hacky rightnow, basically we find the third " which i know that it's after location 11
         token = txt.substr (txt.find('"',11)+1, strlen(txt.c_str()) - txt.find('"',11) - 4);
         ofLog() << "token = " << token;
