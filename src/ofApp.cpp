@@ -69,7 +69,8 @@ void ofApp::onServerEvent (ofxSocketIOData& data) {
 }
 
 void ofApp::onPingEvent (ofxSocketIOData& data) {
-    ofLog() << "getting" ;
+    ofLog() << "getting: " << data.getStringValue("msg");
+
     //  ofLogNotice("ofxSocketIO", "echo");
     //  std::string pong = "pong";
     //  std::string param = "foo";
@@ -96,11 +97,12 @@ void ofApp::newResponse(ofxHttpResponse & response){
         token = txt.substr (txt.find('"',11)+1, strlen(txt.c_str()) - txt.find('"',11) - 4);
         ofLog() << "token = " << token;
         
-        address = "http://127.0.0.1:5000?token=" + token;
+        address = "http://127.0.0.1:5000";
         ofLog() << "address = " << address;
+
+        std::map<std::string,std::string> query = {{"token", token}};
         
-        socketIO.setup(address);
-        
+        socketIO.setup(address, query);
     }
     
 }
